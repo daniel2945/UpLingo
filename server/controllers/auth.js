@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const bcryptjs = require('bcryptjs')
 
 // פונקציית עזר ליצירת Token
 const createToken = (id) => {
@@ -14,7 +15,8 @@ const register = async (req, res) => {
         const userExists = await User.findOne({ email });
         if (userExists) return res.status(400).json({ message: 'משתמש כבר קיים במערכת' });
 
-        const user = await User.create({ username, email, password });
+        const user = new User({ username, email, password });
+        await user.save();
 
         res.status(201).json({
             success: true,
@@ -32,7 +34,7 @@ const login = async (req, res) => {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
 
-        if (!user || !(await user.comparePassword(password))) {
+        if (!user || !(await bcryptjs.compare(password, user.password))) {
             return res.status(401).json({ message: 'אימייל או סיסמה שגויים' });
         }
 

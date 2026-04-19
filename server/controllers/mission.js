@@ -1,49 +1,24 @@
 const Mission = require('../models/Mission');
 const User = require('../models/User');
-const geminiService = require('../services/geminiService');
+// אפשר למחוק את ה-import של geminiService! אנחנו נשתמש בו רק בראוטים של המנהל בעתיד.
 
-// פונקציה לשליפת משימה ויצירת השיעור דרך AI (GET)
-// Protected by isVerified
+// GET /:missionOrder
 const getMissionLesson = async (req, res) => {
     try {
-        const { id } = req.params;
-        const user = req.user;
-        
-        // 1. מחפשים את המשימה במסד הנתונים
-        const mission = await Mission.findOne({ missionId: id });
+        const order = parseInt(req.params.missionOrder);
+        const mission = await Mission.findOne({ missionOrder: order, isPublished: true });
         
         if (!mission) {
-            return res.status(404).json({ success: false, error: "Mission not found in DB" });
+            return res.status(404).json({ message: "Mission not found or not published yet." });
         }
-
-        // 2. Sort req.user.sandbox by score (ascending) and pick the top 2 words (the user's weakest words)
-        const pastWeakWords = [...user.sandbox]
-            .sort((a, b) => a.score - b.score)
-            .slice(0, 2);
-
-        // 3. שולחים את נתוני המשימה ל-Gemini לייצור התוכן
-        const lessonContent = await geminiService.generateMissionContent(mission, pastWeakWords, 'Spanish', 'Hebrew');
-
-        // 4. מחזירים את התשובה ללקוח
-        res.json({
-            success: true,
-            missionData: {
-                id: mission.missionId,
-                level: mission.level,
-                grammarRule: mission.grammarRule,
-                order: mission.order
-            },
-            lesson: lessonContent
-        });
-
+        
+        res.json(mission);
     } catch (error) {
-        console.error("Error in getMissionLesson:", error);
-        res.status(500).json({ success: false, error: "Server error generating lesson" });
+        res.status(500).json({ error: "Server error retrieving mission" });
     }
 };
 
-// פונקציית עזר ליצירת משימה חדשה ב-DB (POST)
-// Public/Admin as requested
+// POST / (Admin)
 const createMission = async (req, res) => {
     try {
         const newMission = new Mission(req.body);
@@ -54,51 +29,50 @@ const createMission = async (req, res) => {
     }
 };
 
-// POST /complete (Protected by isVerified)
+// POST /complete
 const completeMission = async (req, res) => {
     try {
-        const { missionId } = req.body;
+        const { missionOrder } = req.body;
         const userId = req.user._id;
 
-        // 1. מוצאים את המשימה
-        const mission = await Mission.findOne({ missionId });
+        // שים לב ל-populate! אנחנו מושכים את המידע המלא על המילים החדשות של השיעור הזה
+        const mission = await Mission.findOne({ missionOrder }).populate('targetVocabularyRefs');
         if (!mission) return res.status(404).json({ message: "Mission not found" });
 
-        // 2. מוצאים את המשתמש
         const user = await User.findById(userId);
 
-        // 3. לוקחים את כל הפעלים ושמות העצם מהמשימה
-        const requiredWords = [
-            ...mission.requiredVerbs.map(w => ({ word: w, type: 'verb' })),
-            ...mission.requiredNouns.map(w => ({ word: w, type: 'noun' }))
-        ];
+        // 1. עוברים על המילים האמיתיות מהמאגר שלנו (שהן ה-Target של השיעור)
+        if (mission.targetVocabularyRefs && mission.targetVocabularyRefs.length > 0) {
+            mission.targetVocabularyRefs.forEach(vocabObj => {
+                // בודקים אם המילה כבר קיימת בארגז החול של המשתמש
+                const exists = user.sandbox.find(s => s.word === vocabObj.word);
+                if (!exists) {
+                    user.sandbox.push({
+                        word: vocabObj.word,
+                        type: vocabObj.type, // שומר את הסוג האמיתי! (noun, verb, adjective)
+                        score: 1 
+                    });
+                }
+            });
+        }
 
-        // 4. מזריקים ל-Sandbox (רק אם המילה לא קיימת שם כבר)
-        requiredWords.forEach(item => {
-            const exists = user.sandbox.find(s => s.word === item.word);
-            if (!exists) {
-                user.sandbox.push({
-                    word: item.word,
-                    type: item.type,
-                    score: 1 
-                });
-            }
-        });
-
-        // 5. מעדכנים את ההתקדמות במפה
-        if (mission.order >= user.currentMissionOrder) {
+        // 2. מקדמים את המשתמש במסלול (אם הוא לא חזר אחורה לתרגל)
+        if (mission.missionOrder >= user.currentMissionOrder) {
             user.currentMissionOrder = user.currentMissionOrder + 1;
         }
 
+        // עכשיו השמירה תעבור בהצלחה כי המודל עודכן
         await user.save();
+        
         res.json({ 
             success: true, 
-            message: "Mission completed and Sandbox updated!", 
+            message: "Mission completed!", 
             currentMissionOrder: user.currentMissionOrder,
             sandbox: user.sandbox
         });
 
     } catch (error) {
+        console.error("Complete Mission Error:", error);
         res.status(500).json({ message: error.message });
     }
 };

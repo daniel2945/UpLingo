@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-const isVerified = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
     let token;
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
@@ -24,4 +24,14 @@ const isVerified = async (req, res, next) => {
     }
 };
 
-module.exports = { isVerified };
+const verifyAdmin = (req, res, next) => {
+    // אנחנו מניחים ש-verifyToken כבר רץ לפני הפונקציה הזו
+    // ולכן req.user קיים ומכיל את פרטי המשתמש
+    if (req.user && req.user.role === 'admin') {
+        next(); // הכל תקין, תמשיך לקונטרולר!
+    } else {
+        res.status(403).json({ message: "Access denied. Admin privileges required." });
+    }
+};
+
+module.exports = { verifyToken, verifyAdmin };

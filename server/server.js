@@ -5,14 +5,14 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const missionRouter = require('./routes/mission')
 const authRouter = require('./routes/auth')
-const userRouter = require('./routes/user')
+const userRouter = require('./routes/user');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// 1. קודם כל מתחברים למסד הנתונים
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('✅ Connected to MongoDB successfully'))
     .catch((err) => {
@@ -33,6 +33,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/missions', missionRouter);
 app.use('/api/users', userRouter);
+app.use('/api/admin', adminRouter)
 
 // 3. מדליקים את השרת
 const PORT = process.env.PORT || 5000;

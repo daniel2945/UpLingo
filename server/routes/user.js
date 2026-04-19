@@ -1,9 +1,9 @@
 const express = require('express');
 const userRouter = express.Router();
 const { getMe } = require('../controllers/user');
-const { isVerified } = require('../middleware/auth');
+const { verifyToken } = require('../middleware/auth');
 
 // GET /api/users/me (Protected)
-userRouter.get('/me', isVerified, getMe);
+userRouter.get('/me', verifyToken, getMe);
 
 module.exports = userRouter;

@@ -1,15 +1,12 @@
 const express = require('express');
 const missionRouter = express.Router();
-const { getMissionLesson, createMission, completeMission } = require('../controllers/mission');
-const { isVerified } = require('../middleware/auth');
+const { getMissionLesson, completeMission } = require('../controllers/mission');
+const { verifyToken } = require('../middleware/auth'); // נניח שיש לך מידלוור כזה
 
-// 1. שליפת וייצור שיעור (GET) - Protected because it uses user sandbox
-missionRouter.get('/:id', isVerified, getMissionLesson);
+// טעינת שיעור ספציפי (למשל: /api/missions/1)
+missionRouter.get('/:missionOrder', verifyToken, getMissionLesson);
 
-// 2. הזרקת משימה חדשה לסילבוס (POST - Public/Admin)
-missionRouter.post('/', createMission);
-
-// 3. אישור סיום משימה ועדכון ארגז החול של המשתמש (POST)
-missionRouter.post('/complete', isVerified, completeMission);
+// סיום שיעור וקבלת מילים לארגז החול
+missionRouter.post('/complete', verifyToken, completeMission);
 
 module.exports = missionRouter;

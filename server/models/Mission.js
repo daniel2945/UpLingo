@@ -1,43 +1,23 @@
 const mongoose = require('mongoose');
 
-const missionSchema = new mongoose.Schema({
-    missionId: { 
-        type: String, 
-        required: true, 
-        unique: true,
-        trim: true
-    }, // למשל: "a1_verbs_1"
-    
-    level: { 
-        type: String, 
-        required: true,
-        enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] // מוודא שלא נכניס בטעות רמה לא קיימת
-    },
-    
-    order: { 
-        type: Number, 
-        required: true 
-    }, // המיקום של השלב במפה (1, 2, 3...)
-    
-    grammarRule: { 
-        type: String, 
-        required: true 
-    }, // הנושא. למשל: "Present Tense - AR verbs"
-    
-    requiredVerbs: [{ 
-        type: String 
-    }], // מערך של פעלים. למשל: ["hablar", "cantar"]
-    
-    requiredNouns: [{ 
-        type: String 
-    }], // מערך של שמות עצם. למשל: ["casa", "amigo"]
-    
-    explanationHint: { 
-        type: String 
-    } // טיפ ל-AI איך להסביר את החוק (אופציונלי)
-    
-}, { 
-    timestamps: true // מוסיף אוטומטית תאריכי יצירה ועדכון
+// אותה סכימת כרטיסיות שדיברנו עליה (מקוצרת פה לנוחות)
+const CardSchema = new mongoose.Schema({
+  type: { type: String, enum: ['concept', 'flashcard', 'multiple_choice', 'build_sentence'] },
+  title: String, text: String, word: String, translation: String, question: String, 
+  options: [String], correctAnswer: mongoose.Schema.Types.Mixed
 });
 
-module.exports = mongoose.model('Mission', missionSchema);
+const MissionSchema = new mongoose.Schema({
+  missionOrder: { type: Number, required: true, unique: true }, // שלב 1, 2, 3...
+  title: { type: String, required: true }, 
+  
+  // הקישורים החכמים למאגרים שלנו (References):
+  grammarRuleRef: { type: mongoose.Schema.Types.ObjectId, ref: 'GrammarRule' },
+  targetVocabularyRefs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Vocabulary' }], // המילים החדשות (הדגש המרכזי)
+  reviewVocabularyRefs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Vocabulary' }], // המילים שכבר נלמדו ("לזרוק פה ושם")
+  
+  isPublished: { type: Boolean, default: false }, // פורסם לתלמידים?
+  cards: [CardSchema] // המערך הסופי שה-AI ייצר ואתה אישרת!
+});
+
+module.exports = mongoose.model('Mission', MissionSchema);
