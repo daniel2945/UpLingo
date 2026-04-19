@@ -18,7 +18,9 @@ const VocabularySchema = new mongoose.Schema({
     default: false // מילה חדשה מתחילה כ-false. כשתשבץ אותה בשיעור, זה יהפוך ל-true
   },
   // שדה מיוחד לפעלים (אופציונלי)
-  conjugationNotes: { type: String } // למשל: "פועל יוצא דופן, משתנה ל-soy"
-});
+  conjugationNotes: { type: String }
+   // למשל: "פועל יוצא דופן, משתנה ל-soy"
+},   { timestamps: true },
+);
 
 module.exports = mongoose.model('Vocabulary', VocabularySchema);
