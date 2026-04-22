@@ -1,15 +1,21 @@
 const Mission = require('../models/Mission');
-const User = require('../models/User');
-// אפשר למחוק את ה-import של geminiService! אנחנו נשתמש בו רק בראוטים של המנהל בעתיד.
+const UserProgress = require('../models/UserProgress');
 
-// GET /:missionOrder
+// GET /:missionOrder?lang=es (או en)
 const getMissionLesson = async (req, res) => {
     try {
         const order = parseInt(req.params.missionOrder);
-        const mission = await Mission.findOne({ missionOrder: order, isPublished: true });
+        const { lang } = req.query; // הלקוח שולח באיזו שפה הוא נמצא עכשיו
+
+        // מוצאים משימה שמתאימה גם למספר וגם לשפה
+        const mission = await Mission.findOne({ 
+            missionOrder: order, 
+            language: lang, 
+            isPublished: true 
+        });
         
         if (!mission) {
-            return res.status(404).json({ message: "Mission not found or not published yet." });
+            return res.status(404).json({ message: "Mission not found for this language." });
         }
         
         res.json(mission);
@@ -18,67 +24,56 @@ const getMissionLesson = async (req, res) => {
     }
 };
 
-// POST / (Admin)
-const createMission = async (req, res) => {
-    try {
-        const newMission = new Mission(req.body);
-        await newMission.save();
-        res.status(201).json({ success: true, data: newMission });
-    } catch (error) {
-        res.status(400).json({ success: false, error: error.message });
-    }
-};
-
 // POST /complete
 const completeMission = async (req, res) => {
     try {
-        const { missionOrder } = req.body;
+        const { missionOrder, language } = req.body; // מקבלים שפה כדי לדעת איזה "עולם" לעדכן
         const userId = req.user._id;
 
-        // שים לב ל-populate! אנחנו מושכים את המידע המלא על המילים החדשות של השיעור הזה
-        const mission = await Mission.findOne({ missionOrder }).populate('targetVocabularyRefs');
+        // 1. מושכים את נתוני המשימה (כולל המילים)
+        const mission = await Mission.findOne({ missionOrder, language }).populate('targetVocabularyRefs');
         if (!mission) return res.status(404).json({ message: "Mission not found" });
 
-        const user = await User.findById(userId);
+        // 2. מוצאים (או יוצרים) את פרופיל ההתקדמות של המשתמש בשפה הזו
+        let progress = await UserProgress.findOne({ userId, language });
+        if (!progress) {
+            progress = new UserProgress({ userId, language });
+        }
 
-        // 1. עוברים על המילים האמיתיות מהמאגר שלנו (שהן ה-Target של השיעור)
+        // 3. עדכון ה-Sandbox (ארגז החול) בתוך ה-UserProgress
         if (mission.targetVocabularyRefs && mission.targetVocabularyRefs.length > 0) {
             mission.targetVocabularyRefs.forEach(vocabObj => {
-                // בודקים אם המילה כבר קיימת בארגז החול של המשתמש
-                const exists = user.sandbox.find(s => s.word === vocabObj.word);
+                // בודקים אם המילה כבר קיימת לפי ה-ID שלה
+                const exists = progress.sandbox.find(s => s.vocabularyId.toString() === vocabObj._id.toString());
                 if (!exists) {
-                    user.sandbox.push({
-                        word: vocabObj.word,
-                        type: vocabObj.type, // שומר את הסוג האמיתי! (noun, verb, adjective)
+                    progress.sandbox.push({
+                        vocabularyId: vocabObj._id,
                         score: 1 
                     });
                 }
             });
         }
 
-        // 2. מקדמים את המשתמש במסלול (אם הוא לא חזר אחורה לתרגל)
-        if (mission.missionOrder >= user.currentMissionOrder) {
-            user.currentMissionOrder = user.currentMissionOrder + 1;
+        // 4. קידום המשתמש במסלול של השפה הספציפית הזו
+        if (mission.missionOrder >= progress.currentMissionOrder) {
+            progress.currentMissionOrder = progress.currentMissionOrder + 1;
         }
 
-        // עכשיו השמירה תעבור בהצלחה כי המודל עודכן
-        await user.save();
+        await progress.save();
         
         res.json({ 
             success: true, 
-            message: "Mission completed!", 
-            currentMissionOrder: user.currentMissionOrder,
-            sandbox: user.sandbox
+            message: "Progress saved!", 
+            currentMissionOrder: progress.currentMissionOrder,
+            sandbox: progress.sandbox
         });
 
     } catch (error) {
-        console.error("Complete Mission Error:", error);
         res.status(500).json({ message: error.message });
     }
 };
 
 module.exports = {
     getMissionLesson,
-    createMission,
     completeMission
 };
