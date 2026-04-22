@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// אותה סכימת כרטיסיות שדיברנו עליה (מקוצרת פה לנוחות)
 const CardSchema = new mongoose.Schema({
   type: {
     type: String,
@@ -17,25 +16,34 @@ const CardSchema = new mongoose.Schema({
 
 const MissionSchema = new mongoose.Schema(
   {
-    missionOrder: { type: Number, required: true, unique: true }, // שלב 1, 2, 3...
+    missionOrder: { type: Number, required: true }, // שים לב: הורדנו את ה-unique מפה!
     title: { type: String, required: true },
 
-    // הקישורים החכמים למאגרים שלנו (References):
     grammarRuleRef: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "GrammarRule",
     },
     targetVocabularyRefs: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Vocabulary" },
-    ], // המילים החדשות (הדגש המרכזי)
+    ], 
     reviewVocabularyRefs: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Vocabulary" },
     ], // המילים שכבר נלמדו ("לזרוק פה ושם")
+    
+    language: {
+      type: String,
+      required: true,
+      enum: ["en", "es"],
+      default: "en",
+    }, 
 
-    isPublished: { type: Boolean, default: false }, // פורסם לתלמידים?
-    cards: [CardSchema], // המערך הסופי שה-AI ייצר ואתה אישרת!
+    isPublished: { type: Boolean, default: false },
+    cards: [CardSchema],
   },
   { timestamps: true },
 );
+
+// האינדקס החכם: מותר שיהיה שיעור 1 בספרדית ושיעור 1 באנגלית, אבל לא פעמיים שיעור 1 באנגלית
+MissionSchema.index({ language: 1, missionOrder: 1 }, { unique: true });
 
 module.exports = mongoose.model("Mission", MissionSchema);

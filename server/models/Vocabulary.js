@@ -13,6 +13,12 @@ const VocabularySchema = new mongoose.Schema({
     enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'],
     required: true 
   },
+  language: { 
+  type: String, 
+  required: true, 
+  enum: ['en', 'es'], 
+  default: 'en' 
+},
   isTaught: { 
     type: Boolean, 
     default: false // מילה חדשה מתחילה כ-false. כשתשבץ אותה בשיעור, זה יהפוך ל-true
@@ -22,5 +28,7 @@ const VocabularySchema = new mongoose.Schema({
    // למשל: "פועל יוצא דופן, משתנה ל-soy"
 },   { timestamps: true },
 );
+
+VocabularySchema.index({ language: 1, word: 1 }, { unique: true });
 
 module.exports = mongoose.model('Vocabulary', VocabularySchema);

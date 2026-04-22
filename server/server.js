@@ -7,6 +7,8 @@ const missionRouter = require("./routes/mission");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const adminRouter = require("./routes/admin");
+const toolsRouter = require("./routes/tools");
+
 
 const app = express();
 
@@ -35,6 +37,8 @@ app.use("/api/auth", authRouter);
 app.use("/api/missions", missionRouter);
 app.use("/api/users", userRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/tools", toolsRouter);
+
 
 // 3. מדליקים את השרת
 const PORT = process.env.PORT || 5000;
