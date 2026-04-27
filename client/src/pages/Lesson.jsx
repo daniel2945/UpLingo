@@ -5,6 +5,8 @@ import API_CALL from '../api/API_CALL';
 import useAuthStore from '../store/authStore';
 import useLearningStore from '../store/learningStore';
 import { ArrowLeft, CheckCircle2, AlertCircle, Loader2, Lightbulb } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const Lesson = () => {
   const { missionId } = useParams();
@@ -28,16 +30,15 @@ const Lesson = () => {
     enabled: !!missionId && !!language,
   });
 
-  // 2. מוטציה לסיום משימה
+  // 2. מוטציה לסיום משימה ועדכון התקדמות במפה
   const completeMutation = useMutation({
-    mutationFn: (missionOrder) => API_CALL(`/missions/complete`, 'POST', { 
-      missionOrder, 
+    mutationFn: () => API_CALL(`/users/progress/complete`, 'PUT', { 
       language 
     }),
     onSuccess: async () => {
-      await fetchProfile();
+      await fetchProfile(); // מעדכן את הסטור עם השלב החדש במפה
       queryClient.invalidateQueries(['progress', language]);
-      navigate('/dashboard');
+      navigate('/dashboard'); // מחזיר למפה
     }
   });
 
@@ -109,7 +110,7 @@ const Lesson = () => {
 
   const handleContinue = () => {
     if (currentCardIndex === mission.cards.length - 1) {
-      completeMutation.mutate(mission.missionOrder);
+      completeMutation.mutate();
     } else {
       setCurrentCardIndex(prev => prev + 1);
     }
@@ -134,14 +135,30 @@ const Lesson = () => {
 
       {/* Card Content */}
       <main className="flex-1 max-w-2xl mx-auto w-full p-6 flex flex-col justify-center pb-40">
+        
+        {/* קומפוננטת קונספט (הסברים וטבלאות) משודרגת עם ReactMarkdown */}
         {currentCard.type === 'concept' && (
           <div className="animate-in slide-in-from-right-8 duration-500 space-y-6 text-right" dir="rtl">
             <div className="flex items-center space-x-2 text-blue-600 mb-2" dir="ltr">
               <Lightbulb size={24} /> <span className="font-black uppercase tracking-wider">Concept</span>
             </div>
             <h1 className="text-3xl font-black text-gray-800">{currentCard.title}</h1>
-            <div className="bg-white p-8 rounded-3xl shadow-sm border-2 border-gray-100 text-xl text-gray-600 leading-relaxed whitespace-pre-wrap">
-              {currentCard.text}
+            
+            <div className="bg-white p-8 rounded-3xl shadow-sm border-2 border-gray-100 text-gray-600 leading-relaxed" dir="ltr">
+              <ReactMarkdown 
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  // עיצוב הטבלה
+                  table: ({node, ...props}) => <div className="overflow-x-auto my-6"><table className="w-full text-left border-collapse rounded-xl overflow-hidden shadow-sm ring-1 ring-slate-200" {...props} /></div>,
+                  th: ({node, ...props}) => <th className="bg-blue-50 text-blue-800 font-black p-4 border-b-2 border-blue-100" {...props} />,
+                  td: ({node, ...props}) => <td className="p-4 border-b border-slate-100 bg-white font-medium text-lg" {...props} />,
+                  // עיצוב טקסטים
+                  strong: ({node, ...props}) => <strong className="font-black text-blue-600" {...props} />,
+                  p: ({node, ...props}) => <p className="mb-4 text-xl" dir="auto" {...props} />
+                }}
+              >
+                {currentCard.text}
+              </ReactMarkdown>
             </div>
           </div>
         )}
