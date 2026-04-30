@@ -21,7 +21,7 @@ const GrammarRuleSchema = new mongoose.Schema(
     language: {
       type: String,
       required: true,
-      enum: ["en", "es"],
+      enum: ["en", "es", "fr", "de"],
       default: "en",
     },
   },

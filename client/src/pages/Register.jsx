@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import useAuthStore from '../store/authStore';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import useAuthStore from "../store/authStore";
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const register = useAuthStore((state) => state.register);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
     try {
       await register(username, email, password);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      setError(
+        err.response?.data?.message || "Registration failed. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -40,7 +42,9 @@ const Register = () => {
         )}
 
         <div className="space-y-2">
-          <label className="text-sm font-bold text-gray-600 ml-1">USERNAME</label>
+          <label className="text-sm font-bold text-gray-600 ml-1">
+            USERNAME
+          </label>
           <input
             type="text"
             value={username}
@@ -52,7 +56,9 @@ const Register = () => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-bold text-gray-600 ml-1">EMAIL ADDRESS</label>
+          <label className="text-sm font-bold text-gray-600 ml-1">
+            EMAIL ADDRESS
+          </label>
           <input
             type="email"
             value={email}
@@ -64,7 +70,9 @@ const Register = () => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-bold text-gray-600 ml-1">PASSWORD</label>
+          <label className="text-sm font-bold text-gray-600 ml-1">
+            PASSWORD
+          </label>
           <input
             type="password"
             value={password}
@@ -80,13 +88,16 @@ const Register = () => {
           disabled={loading}
           className="w-full bg-secondary hover:bg-secondary-dark text-white font-bold py-4 rounded-2xl border-b-4 border-secondary-dark transition-all disabled:opacity-50"
         >
-          {loading ? 'CREATING ACCOUNT...' : 'REGISTER'}
+          {loading ? "CREATING ACCOUNT..." : "REGISTER"}
         </button>
 
         <div className="text-center pt-4 border-t border-gray-100">
           <p className="text-gray-500">
-            Already have an account?{' '}
-            <Link to="/login" className="text-primary font-bold hover:underline">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-primary font-bold hover:underline"
+            >
               Log in here
             </Link>
           </p>

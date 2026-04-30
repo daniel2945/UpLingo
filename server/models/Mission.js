@@ -25,17 +25,17 @@ const MissionSchema = new mongoose.Schema(
     },
     targetVocabularyRefs: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Vocabulary" },
-    ], 
+    ],
     reviewVocabularyRefs: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Vocabulary" },
     ], // המילים שכבר נלמדו ("לזרוק פה ושם")
-    
+
     language: {
       type: String,
       required: true,
-      enum: ["en", "es"],
+      enum: ["en", "es", "fr", "de"],
       default: "en",
-    }, 
+    },
 
     isPublished: { type: Boolean, default: false },
     cards: [CardSchema],

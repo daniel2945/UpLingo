@@ -1,0 +1,408 @@
+[
+  {
+    "ruleName": "Verb 'To Be' (am, is, are)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Present simple positive",
+    "aiInstruction": "Explain how to use the verb 'to be' in the present tense (I am, he is, they are). Keep it very simple and provide basic examples."
+  },
+  {
+    "ruleName": "Verb 'To Be' (Negative)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "am not, isn't, aren't",
+    "aiInstruction": "Explain how to make negative sentences with the verb 'to be' (I am not, he isn't, they aren't)."
+  },
+  {
+    "ruleName": "Verb 'To Be' (Questions)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Am I? Is he? Are you?",
+    "aiInstruction": "Explain how to ask Yes/No questions using the verb 'to be' by swapping the subject and the verb."
+  },
+  {
+    "ruleName": "Subject Pronouns",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "I, you, he, she, it, we, they",
+    "aiInstruction": "Explain the basic subject pronouns in English and when to use 'it' vs 'he/she'."
+  },
+  {
+    "ruleName": "Object Pronouns",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "me, you, him, her, it, us, them",
+    "aiInstruction": "Explain object pronouns (me, you, him, her). Show how they come after a verb or preposition."
+  },
+  {
+    "ruleName": "Possessive Adjectives",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "my, your, his, her, its, our, their",
+    "aiInstruction": "Explain possessive adjectives (my, your, his, her). Emphasize that they always come BEFORE a noun (e.g., 'my book')."
+  },
+  {
+    "ruleName": "Demonstrative Pronouns (This / That)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Singular nearby vs far",
+    "aiInstruction": "Explain the difference between 'this' (singular, near) and 'that' (singular, far)."
+  },
+  {
+    "ruleName": "Demonstrative Pronouns (These / Those)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Plural nearby vs far",
+    "aiInstruction": "Explain the difference between 'these' (plural, near) and 'those' (plural, far)."
+  },
+  {
+    "ruleName": "Articles: A / An",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Indefinite articles",
+    "aiInstruction": "Explain when to use 'a' (before consonant sounds) and 'an' (before vowel sounds)."
+  },
+  {
+    "ruleName": "Definite Article: The",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Specific nouns",
+    "aiInstruction": "Explain the basic use of 'the' for specific things that both the speaker and listener know."
+  },
+  {
+    "ruleName": "Plural Nouns (Regular -s)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Adding -s or -es",
+    "aiInstruction": "Explain how to make regular nouns plural by adding '-s' or '-es' (e.g., car -> cars, bus -> buses)."
+  },
+  {
+    "ruleName": "Plural Nouns (Irregular)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "men, women, children",
+    "aiInstruction": "Introduce basic irregular plural nouns like man->men, woman->women, child->children, person->people."
+  },
+  {
+    "ruleName": "There is / There are",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Existence positive",
+    "aiInstruction": "Explain how to state that something exists using 'there is' (singular) and 'there are' (plural)."
+  },
+  {
+    "ruleName": "There isn't / There aren't",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Existence negative",
+    "aiInstruction": "Explain how to state that something does not exist using 'there isn't' and 'there aren't'."
+  },
+  {
+    "ruleName": "Present Simple (I / You / We / They)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Base form verbs",
+    "aiInstruction": "Explain the present simple tense for routines and habits, specifically for I, you, we, and they. Don't mention the 's' for he/she yet."
+  },
+  {
+    "ruleName": "Present Simple (He / She / It)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Adding -s or -es to verbs",
+    "aiInstruction": "Explain the present simple tense for he, she, and it. Focus on adding '-s' or '-es' to the verb."
+  },
+  {
+    "ruleName": "Present Simple Negative (Don't / Doesn't)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Negative routines",
+    "aiInstruction": "Explain how to make negative sentences in the present simple using 'don't' and 'doesn't'."
+  },
+  {
+    "ruleName": "Present Simple Questions (Do / Does)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Yes/No questions",
+    "aiInstruction": "Explain how to ask Yes/No questions in the present simple using 'Do' and 'Does'."
+  },
+  {
+    "ruleName": "Adverbs of Frequency",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "always, usually, sometimes, never",
+    "aiInstruction": "Explain basic adverbs of frequency (always, usually, sometimes, never) and their position in a sentence (before the main verb)."
+  },
+  {
+    "ruleName": "Present Continuous (Positive)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "am/is/are + verb-ing",
+    "aiInstruction": "Explain the present continuous tense for actions happening right now. Show the structure: subject + be + verb-ing."
+  },
+  {
+    "ruleName": "Present Continuous (Negative)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "am not / isn't / aren't + verb-ing",
+    "aiInstruction": "Explain how to make negative sentences in the present continuous tense."
+  },
+  {
+    "ruleName": "Present Continuous (Questions)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Are you playing?",
+    "aiInstruction": "Explain how to ask questions in the present continuous tense by moving the verb 'to be' to the beginning."
+  },
+  {
+    "ruleName": "Present Simple vs Present Continuous",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Habits vs happening now",
+    "aiInstruction": "Contrast the Present Simple (routines/habits) with the Present Continuous (happening right now)."
+  },
+  {
+    "ruleName": "Have got / Has got",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Possession (British style)",
+    "aiInstruction": "Explain how to express possession using 'have got' and 'has got'. Include positive and negative."
+  },
+  {
+    "ruleName": "Question Words: What / Where / Who",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Basic WH questions",
+    "aiInstruction": "Explain the meaning and usage of the question words 'What', 'Where', and 'Who' with simple examples."
+  },
+  {
+    "ruleName": "Question Words: When / Why / How",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "More WH questions",
+    "aiInstruction": "Explain the meaning and usage of 'When', 'Why', and 'How' with simple examples."
+  },
+  {
+    "ruleName": "Can (Ability)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "I can swim",
+    "aiInstruction": "Explain how to use the modal verb 'can' to talk about skills and abilities."
+  },
+  {
+    "ruleName": "Can't (Inability)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "I can't swim",
+    "aiInstruction": "Explain how to use 'cannot' or 'can't' to talk about lack of ability."
+  },
+  {
+    "ruleName": "Can (Requests / Permission)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Can I go?",
+    "aiInstruction": "Explain how to use 'Can I...?' or 'Can you...?' to ask for permission or make simple requests."
+  },
+  {
+    "ruleName": "Prepositions of Place (in, on, at)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Basic locations",
+    "aiInstruction": "Explain the basic differences between 'in' (inside), 'on' (surfaces), and 'at' (specific points/places)."
+  },
+  {
+    "ruleName": "Prepositions of Place (under, next to)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "More locations",
+    "aiInstruction": "Explain the prepositions 'under' and 'next to' with clear physical examples."
+  },
+  {
+    "ruleName": "Prepositions of Time (in, on, at)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "in months, on days, at times",
+    "aiInstruction": "Explain the rules for time prepositions: 'at' for clock times, 'on' for days, and 'in' for months/years."
+  },
+  {
+    "ruleName": "Like / Love / Hate + V-ing",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Gerunds after preference verbs",
+    "aiInstruction": "Explain that verbs of preference (like, love, hate, enjoy) are often followed by a verb ending in '-ing' (e.g., I like playing)."
+  },
+  {
+    "ruleName": "Would like (Offers / Requests)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "I'd like a coffee",
+    "aiInstruction": "Explain how to use 'would like' (or 'I'd like') as a polite way to say 'I want'."
+  },
+  {
+    "ruleName": "Countable vs Uncountable Nouns",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "apples vs water",
+    "aiInstruction": "Explain the difference between nouns you can count (apples) and nouns you cannot count (water, money)."
+  },
+  {
+    "ruleName": "Some and Any",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Quantifiers basics",
+    "aiInstruction": "Explain the basic rule: use 'some' in positive sentences, and 'any' in negative sentences and questions."
+  },
+  {
+    "ruleName": "How much / How many",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Asking about quantities",
+    "aiInstruction": "Explain that 'How many' is used with plural countable nouns, and 'How much' is used with uncountable nouns."
+  },
+  {
+    "ruleName": "Imperative (Commands)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Sit down / Don't move",
+    "aiInstruction": "Explain how to give commands or instructions using the imperative form (base verb) and negative imperative (Don't)."
+  },
+  {
+    "ruleName": "Let's (Suggestions)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Let's go!",
+    "aiInstruction": "Explain how to make simple suggestions using 'Let's' followed by the base verb."
+  },
+  {
+    "ruleName": "Past Simple: Verb 'To Be' (was / were)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Past existence",
+    "aiInstruction": "Explain the past tense of the verb 'to be'. Show when to use 'was' and when to use 'were'."
+  },
+  {
+    "ruleName": "Past Simple: Regular Verbs (-ed)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Played, worked",
+    "aiInstruction": "Explain how to form the past simple of regular verbs by adding '-ed'."
+  },
+  {
+    "ruleName": "Past Simple: Irregular Verbs (Basic)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "went, saw, ate",
+    "aiInstruction": "Introduce the concept of irregular past simple verbs using very common examples like go/went, see/saw, eat/ate."
+  },
+  {
+    "ruleName": "Past Simple Negative (didn't)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "I didn't go",
+    "aiInstruction": "Explain how to form negative sentences in the past simple using 'didn't' + the base verb."
+  },
+  {
+    "ruleName": "Past Simple Questions (Did)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Did you go?",
+    "aiInstruction": "Explain how to ask Yes/No questions in the past simple using 'Did'."
+  },
+  {
+    "ruleName": "Conjunctions (and, but, or)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Linking words",
+    "aiInstruction": "Explain how to connect ideas using the basic conjunctions 'and', 'but', and 'or'."
+  },
+  {
+    "ruleName": "Conjunction: Because",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Giving reasons",
+    "aiInstruction": "Explain how to give a reason using the word 'because'."
+  },
+  {
+    "ruleName": "Position of Adjectives",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "A big car (not a car big)",
+    "aiInstruction": "Explain that in English, adjectives usually come BEFORE the noun they describe, or after the verb 'to be'."
+  },
+  {
+    "ruleName": "Too + Adjective",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Too hot, too big",
+    "aiInstruction": "Explain the use of 'too' before an adjective to mean 'more than what is good or needed' (e.g., too hot)."
+  },
+  {
+    "ruleName": "Ordinal Numbers",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "1st, 2nd, 3rd",
+    "aiInstruction": "Explain basic ordinal numbers (first, second, third) and how they differ from regular numbers."
+  },
+  {
+    "ruleName": "Telling the Time",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "It's six o'clock",
+    "aiInstruction": "Explain the basics of telling the time in English (o'clock, half past, quarter to/past)."
+  },
+  {
+    "ruleName": "Basic Greetings",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Lesson 1: Hello, Hi, Good morning",
+    "aiInstruction": "Teach basic English greetings. Create flashcards and exercises for the following phrases ONLY: 'Hello', 'Hi', 'Good morning', 'Good afternoon', 'Good evening'. Do not use any other complex vocabulary."
+  },
+  {
+    "ruleName": "Basic Farewells",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Lesson 2: Goodbye, See you",
+    "aiInstruction": "Teach basic English farewells. Create flashcards and simple sentence exercises for the following phrases ONLY: 'Goodbye', 'Bye', 'See you later', 'Good night', 'Have a nice day'."
+  },
+  {
+    "ruleName": "Polite Expressions",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Please, Thank you, Sorry",
+    "aiInstruction": "Teach polite English expressions. Use ONLY these phrases for the lesson: 'Please', 'Thank you', 'You are welcome', 'Excuse me', 'I am sorry'. Make the exercises very simple, focusing on when to use each expression."
+  },
+  {
+    "ruleName": "Introductions (My name is...)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Basic self-introduction",
+    "aiInstruction": "Teach how to introduce oneself in English. Focus on the phrases: 'My name is...', 'I am from...', 'Nice to meet you', and 'How are you?'. Do not use complex grammar. Keep it to absolute beginner level."
+  },
+  {
+    "ruleName": "Basic Greetings",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Lesson 1: Hello, Hi, Good morning",
+    "aiInstruction": "Teach basic English greetings. Create flashcards and exercises for the following phrases ONLY: 'Hello', 'Hi', 'Good morning', 'Good afternoon', 'Good evening'. Do not use any other complex vocabulary."
+  },
+  {
+    "ruleName": "Basic Farewells",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Lesson 2: Goodbye, See you",
+    "aiInstruction": "Teach basic English farewells. Create flashcards and simple sentence exercises for the following phrases ONLY: 'Goodbye', 'Bye', 'See you later', 'Good night', 'Have a nice day'."
+  },
+  {
+    "ruleName": "Polite Expressions",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Please, Thank you, Sorry",
+    "aiInstruction": "Teach polite English expressions. Use ONLY these phrases for the lesson: 'Please', 'Thank you', 'You are welcome', 'Excuse me', 'I am sorry'. Make the exercises very simple, focusing on when to use each expression."
+  },
+  {
+    "ruleName": "Introductions (My name is...)",
+    "level": "A1",
+    "language": "en",
+    "adminNotes": "Basic self-introduction",
+    "aiInstruction": "Teach how to introduce oneself in English. Focus on the phrases: 'My name is...', 'I am from...', 'Nice to meet you', and 'How are you?'. Do not use complex grammar. Keep it to absolute beginner level."
+  }
+]

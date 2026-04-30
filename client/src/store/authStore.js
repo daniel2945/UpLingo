@@ -15,6 +15,15 @@ const useAuthStore = create((set, get) => ({
     }
   },
 
+  register: async (username, email, password) => {
+    const data = await API_CALL('/auth/register', 'POST', { username, email, password });
+    if (data.token) {
+      localStorage.setItem('token', data.token);
+      await get().fetchProfile();
+    }
+    return data;
+  },
+
   login: async (email, password) => {
     const data = await API_CALL('/auth/login', 'POST', { email, password });
     if (data.token) {

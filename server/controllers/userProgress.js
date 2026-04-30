@@ -77,7 +77,6 @@ const getUserProgress = async (req, res) => {
 const updateSandboxScores = async (req, res) => {
     try {
         const { language, results } = req.body; 
-        // results יהיה מערך בסגנון: [{ wordId: "...", isCorrect: true }, ...]
         const userId = req.user._id;
 
         const progress = await UserProgress.findOne({ userId, language });
@@ -109,6 +108,45 @@ const updateSandboxScores = async (req, res) => {
     }
 };
 
+// =========================================================
+// הפונקציה החדשה שמעדכנת את השלב במפה!
+// PUT /api/users/progress/complete
+// =========================================================
+const completeMission = async (req, res) => {
+    try {
+        const { language } = req.body;
+        const userId = req.user._id;
+
+        let progress = await UserProgress.findOne({ userId, language });
+        
+        // אם אין לו התקדמות בכלל, נייצר אחת בסיסית
+        if (!progress) {
+            progress = new UserProgress({ 
+                userId, 
+                language, 
+                currentMissionOrder: 1,
+                sandbox: [] 
+            });
+        }
+
+        // מקדמים אותו שלב אחד קדימה
+        progress.currentMissionOrder += 1;
+        await progress.save();
+
+        res.status(200).json({ 
+            message: "Mission completed successfully", 
+            currentMissionOrder: progress.currentMissionOrder 
+        });
+
+    } catch (error) {
+        console.error("Error completing mission:", error);
+        res.status(500).json({ message: "Failed to complete mission" });
+    }
+};
+
 module.exports = {
-    addWordToSandbox, getUserProgress, updateSandboxScores
+    addWordToSandbox, 
+    getUserProgress, 
+    updateSandboxScores,
+    completeMission // אל תשכח לייצא אותה
 };
