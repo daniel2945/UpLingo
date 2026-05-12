@@ -1,0 +1,29 @@
+services:
+  api-server:
+    build:
+      context: ./server
+      dockerfile: .Dockerfile
+    ports:
+      - "5000:5000"
+    # במקום לכתוב את הכתובת כאן, אנחנו אומרים לו לקרוא מהקובץ .env המקורי שלך
+    env_file:
+      - ./server/.env
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    # הוספתי הגדרה שמאפשרת לדוקר לגשת לאינטרנט החיצוני (עבור ATLAS)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: .Dockerfile
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./client/.env
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    stdin_open: true
